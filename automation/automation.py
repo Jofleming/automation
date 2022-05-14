@@ -6,17 +6,19 @@ phone_reg = r'\b\d{3}\D?\d{3}\D?\d{4}'
 email_list = []
 number_list = []
 
-with open('potential-contacts.txt') as f:
+with open('./potential-contacts.txt') as f:
     text_from_file = f.read()
 
-def format_numbers(phone_num):
-    formatted_num = phone_num[:3] + '-' + phone_num[3:6] + "-" + phone_num[6:]
+def format_numbers(phone_num_list):
+    formatted_num = []
+    for phone_num in phone_num_list:
+        formatted_num.append(phone_num[:3] + '-' + phone_num[3:6] + "-" + phone_num[6:])
     return formatted_num
 
 def strip_numbers(nums):
     num_list = []
     for num in nums:
-        naked_nums = re.sub('[-.)(]','', nums)
+        naked_nums = re.sub('[-.)(]','', num)
         if len(num) == 7:
             num = '206' + num
         if naked_nums not in num_list:
@@ -32,7 +34,7 @@ def find_numbers(text):
         number_list.append(number)
 
 def write_nums(nums_to_write):
-    with open('phone_numbers.txt', 'w') as num_file:
+    with open('./phone_numbers.txt', 'w') as num_file:
         for number in nums_to_write:
             num_file.write(number)
             num_file.write('\n')
@@ -47,7 +49,7 @@ def find_emails(text_with_emails):
 
 
 def write_emails(list_of_emails):
-    with open('emails.txt', 'w') as email_file:
+    with open('./emails.txt', 'w') as email_file:
         for email in list_of_emails:
             email_file.write(email)
             email_file.write('\n')
